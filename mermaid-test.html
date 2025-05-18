@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabric Architecture Diagram Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fabric Commerce Operating System: Diagram Test</h1>
+    
+    <div class="diagram-container">
+        <h2>Architecture Overview</h2>
+        <div class="mermaid">
+graph TD
+    subgraph IL["Integration Layer"]
+        UC["Universal Connector Framework"]
+        DS1["Data Synchronization Service"]
+        EG["Event Gateway"]
+        AD["Adapter Registry"]
+    end
+
+    subgraph CL["Core Platform Layer"]
+        SCG["Supply Chain Graph"]
+        AM["Agent Management System"]
+        OM["Orchestration Manager"]
+        RM["Rules Engine"]
+        WF["Workflow Service"]
+    end
+
+    subgraph AL["Agent Layer"]
+        IA["Ingestion Agents"]
+        NA["Node-specific Agents"]
+        OA["Orchestration Agents"]
+        AA["Analytics Agents"]
+        CA["Communication Agents"]
+    end
+
+    subgraph DL["Data Layer"]
+        DG["Graph Database"]
+        TS["Time-Series Database"]
+        DL1["Document Lake"]
+        VS["Vector Store"]
+        CR["Configuration Registry"]
+    end
+
+    subgraph EL["Experience Layer"]
+        WP["Web Portal"]
+        MP["Mobile Platform"]
+        API["API Gateway"]
+        NF["Notification Service"]
+        DS2["Dashboard Service"]
+    end
+
+    IL --> CL
+    CL --> AL
+    AL --> DL
+    CL --> DL
+    CL --> EL
+    AL --> EL
+
+    style IL fill:#d0e8f2,stroke:#0077b6
+    style CL fill:#ffe8d6,stroke:#cb997e
+    style AL fill:#d8f3dc,stroke:#2d6a4f
+    style DL fill:#f8edeb,stroke:#9d8189
+    style EL fill:#e9ecef,stroke:#495057
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>Future Expansion Areas</h2>
+        <div class="mermaid">
+graph TD
+    FP[Fabric Platform] --> ST[Sustainability Tracking]
+    FP --> PO[Predictive Optimization]
+    FP --> AO[Autonomous Operations]
+    FP --> EE[Extended Ecosystem]
+    
+    ST --> CF[Carbon Footprint]
+    ST --> WR[Waste Reduction]
+    ST --> CE[Circular Economy]
+    
+    PO --> DF[Demand Forecasting]
+    PO --> IP[Inventory Positioning]
+    PO --> DP[Dynamic Pricing]
+    
+    AO --> SW[Self-healing Workflows]
+    AO --> AN[Automated Negotiations]
+    AO --> DR[Dynamic Network Reconfiguration]
+    
+    EE --> SN[Supplier Network]
+    EE --> FS[Financial Services]
+    EE --> CM[Compliance Management]
+        </div>
+    </div>
+</body>
+</html>

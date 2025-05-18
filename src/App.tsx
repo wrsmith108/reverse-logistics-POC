@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 
 // Import all the TSX components
 import PlatformArchitecture from '../agentic-platform-architecture'
+import FabricSystemArchitecture from '../fabric-system-architecture'
 import OperatorExperience from '../operator-experience'
 import PlatformCapabilitiesMetrics from '../platform-capabilities-metrics'
 import PocImplementation from '../poc-implementation'
@@ -17,6 +18,7 @@ const App: React.FC = () => {
     { path: '/', name: 'Home' },
     { path: '/platform-architecture', name: 'Platform Architecture' },
     { path: '/software-architecture', name: 'Software Architecture' },
+    { path: '/fabric-system-architecture', name: 'Fabric System Architecture' },
     { path: '/operator-experience', name: 'Operator Experience' },
     { path: '/platform-capabilities', name: 'Platform Capabilities & Metrics' },
     { path: '/poc-implementation', name: 'POC Implementation' },
@@ -51,6 +53,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/platform-architecture" element={<PlatformArchitecture />} />
           <Route path="/software-architecture" element={<SoftwareArchitecture />} />
+          <Route path="/fabric-system-architecture" element={<FabricSystemArchitecture />} />
           <Route path="/operator-experience" element={<OperatorExperience />} />
           <Route path="/platform-capabilities" element={<PlatformCapabilitiesMetrics />} />
           <Route path="/poc-implementation" element={<PocImplementation />} />
@@ -95,6 +98,20 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
+        
+        {/* Second column */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-teal-50 p-4 rounded-lg border border-teal-200 flex flex-col h-48">
+            <h3 className="font-bold text-teal-800">Fabric System Architecture</h3>
+            <p className="text-sm mt-2">Agentic system architecture for commerce operations</p>
+            <div className="mt-auto pt-4">
+              <Link to="/fabric-system-architecture" className="inline-block px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700">
+                View Details
+              </Link>
+            </div>
+          </div>
+        </div>
+        
         <div className="bg-green-50 p-4 rounded-lg border border-green-200 flex flex-col h-48">
           <h3 className="font-bold text-green-800">Operator Experience</h3>
           <p className="text-sm mt-2">How operators interact with the platform</p>
@@ -104,6 +121,7 @@ const Home: React.FC = () => {
             </Link>
           </div>
         </div>
+        
         <div className="bg-purple-50 p-4 rounded-lg border border-purple-200 flex flex-col h-48">
           <h3 className="font-bold text-purple-800">ROI Analysis</h3>
           <p className="text-sm mt-2">Financial impact and return on investment</p>
@@ -113,6 +131,7 @@ const Home: React.FC = () => {
             </Link>
           </div>
         </div>
+        
         <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200 flex flex-col h-48">
           <h3 className="font-bold text-yellow-800">Pricing Strategy</h3>
           <p className="text-sm mt-2">Pricing tiers and token-based model</p>
