@@ -11,6 +11,7 @@ import PricingStrategy from '../pricing-strategy'
 import RoiAnalysis from '../roi-analysis'
 import ShopifyIntegration from '../shopify-integration'
 import SoftwareArchitecture from '../software-architecture'
+import SupplyChainFlow from '../supply-chain-flow'
 
 const App: React.FC = () => {
   // Create navigation links based on component names
@@ -19,6 +20,7 @@ const App: React.FC = () => {
     { path: '/platform-architecture', name: 'Platform Architecture' },
     { path: '/software-architecture', name: 'Software Architecture' },
     { path: '/fabric-system-architecture', name: 'Fabric System Architecture' },
+    { path: '/supply-chain-flow', name: 'Supply Chain Flow' },
     { path: '/operator-experience', name: 'Operator Experience' },
     { path: '/platform-capabilities', name: 'Platform Capabilities & Metrics' },
     { path: '/poc-implementation', name: 'POC Implementation' },
@@ -54,6 +56,7 @@ const App: React.FC = () => {
           <Route path="/platform-architecture" element={<PlatformArchitecture />} />
           <Route path="/software-architecture" element={<SoftwareArchitecture />} />
           <Route path="/fabric-system-architecture" element={<FabricSystemArchitecture />} />
+          <Route path="/supply-chain-flow" element={<SupplyChainFlow />} />
           <Route path="/operator-experience" element={<OperatorExperience />} />
           <Route path="/platform-capabilities" element={<PlatformCapabilitiesMetrics />} />
           <Route path="/poc-implementation" element={<PocImplementation />} />
@@ -106,6 +109,16 @@ const Home: React.FC = () => {
             <p className="text-sm mt-2">Agentic system architecture for commerce operations</p>
             <div className="mt-auto pt-4">
               <Link to="/fabric-system-architecture" className="inline-block px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700">
+                View Details
+              </Link>
+            </div>
+          </div>
+          
+          <div className="bg-amber-50 p-4 rounded-lg border border-amber-200 flex flex-col h-48">
+            <h3 className="font-bold text-amber-800">Supply Chain Flow</h3>
+            <p className="text-sm mt-2">End-to-end supply chain and reverse logistics flow diagram</p>
+            <div className="mt-auto pt-4">
+              <Link to="/supply-chain-flow" className="inline-block px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700">
                 View Details
               </Link>
             </div>

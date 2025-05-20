@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Mermaid Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            logLevel: 'debug'
+        });
+
+        // Add a console log to show Mermaid version
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Mermaid version:", mermaid.mermaidAPI.getVersion());
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Basic Mermaid Test</h1>
+    
+    <div class="diagram-container">
+        <h2>Simple Flow</h2>
+        <div class="mermaid">
+graph TD
+    A[Start] --> B[Process]
+    B --> C[End]
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <h2>Basic Subgraph Test</h2>
+        <div class="mermaid">
+graph TD
+    subgraph One
+        A[Node A] --> B[Node B]
+    end
+    
+    subgraph Two
+        C[Node C] --> D[Node D]
+    end
+    
+    B --> C
+        </div>
+    </div>
+</body>
+</html>

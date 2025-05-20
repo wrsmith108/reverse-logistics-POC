@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Flow Diagram Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supply Chain Flow Diagram Test</h1>
+    
+    <div class="diagram-container">
+        <h2>Fixed Mermaid Diagram</h2>
+        <div class="mermaid">
+graph TD
+    customer((Customer))
+    partner((Wholesale Partner))
+    
+    subgraph "Planning & Procurement"
+        forecast["Demand Forecasting (Planning System)"] --> orderPO["Create Purchase Order (ERP)"]
+    end
+    
+    orderPO --> factory["Factory Production & QA Checks"]
+    factory --> bookShip["Book Freight & Prepare Export Docs (TMS/Freight Forwarder)"]
+    bookShip --> exportCustoms["Export Customs Clearance"]
+    exportCustoms --> depart["Depart Origin Port (International Transit)"]
+    depart --> arrivePort["Arrive at Destination Port"]
+    arrivePort --> importCustoms["Import Customs Clearance (Broker)"]
+    importCustoms --> dcTransport["Transport to DC (TMS/Carrier)"]
+    
+    subgraph "Distribution Center Inbound"
+        dcTransport --> receiveDC["Receive Shipment @ DC (Unload, Verify, QC inspection)"]
+        receiveDC --> putaway["Putaway Stock in Warehouse (WMS updates inventory)"]
+    end
+    
+    subgraph "E-commerce Order Fulfillment"
+        ecomOrder["Customer Places Online Order (Website → OMS)"] --> orderCheck{"Order Cancelled?"}
+        orderCheck -- No --> pickPackEcom["Pick & Pack Order (WMS) Print Shipping Label (TMS)"]
+        orderCheck -- Yes --> cancelOrder["Cancel Order (OMS) Refund customer & Release stock"]
+        pickPackEcom --> shipEcom["Ship to Customer (Carrier) Provide Tracking (OMS/TMS)"]
+    end
+    
+    putaway --> ecomOrder
+    shipEcom --> customer
+    
+    subgraph "Retail Store Replenishment"
+        storeRepl["Store Replenishment Trigger (ERP/MRP)"] --> storePick["Pick & Pack for Store (WMS)"]
+        storePick --> shipStore["Ship Transfer to Store (TMS)"]
+        shipStore --> storeRecv["Store Receives Stock Check in & Update POS Inventory"]
+    end
+    
+    putaway --> storeRepl
+    
+    subgraph "Wholesale Fulfillment"
+        wholesaleOrder["Wholesale Partner Order (ERP)"] --> wholesalePick["Pick & Pack Wholesale Batch (WMS) Palletize, ASN & Invoice (ERP)"]
+        wholesalePick --> wholesaleShip["Ship to Wholesale Partner (Freight)"]
+    end
+    
+    putaway --> wholesaleOrder
+    wholesaleShip --> partner
+    
+    subgraph "Reverse Logistics Returns & RMA"
+        returnInit["Initiate Return (Online RMA Portal)"] --> returnShip["Ship Returned Product (Carrier)"]
+        returnShip --> returnRecv["Receive Return at DC/Centre Inspect & Grade Item (Manual QC)"]
+        returnRecv --> disposition{"Item Resellable?"}
+        disposition -- Yes --> restock["Restock into Inventory (WMS/OMS updates stock)"]
+        disposition -- No --> scrapCheck{"Refurbish vs. Scrap?"}
+        scrapCheck -- Refurbish --> refurbish["Send to Refurbishment / Secondary Sales"]
+        scrapCheck -- Scrap --> discard["Recycle/Dispose Product"]
+        
+        restock --> refund["Issue Refund to Customer (OMS/ERP)"]
+        refurbish --> refund
+        discard --> refund
+        storeReturn["Return at Retail Store"] --> storeInspect["Inspect Item (Store Associate)"]
+        storeInspect --> storeDecision{"Resell in Store?"}
+        storeDecision -- Yes --> restockStore["Add Back to Store Stock (POS Update)"]
+        storeDecision -- No --> sendDC["Send to Central Returns Processing (DC)"]
+        sendDC --> returnRecv
+        storeReturn -.-> refundStore["Process Refund to Customer (Store/POS)"]
+        wholesaleReturn["Wholesale Return Request (RMA)"] --> returnRecv
+        wholesaleReturn -.-> creditNote["Issue Credit to Wholesale Partner (ERP)"]
+    end
+    
+    customer -.-> returnInit
+    customer -.-> storeReturn
+    partner -.-> wholesaleReturn
+        </div>
+    </div>
+</body>
+</html>

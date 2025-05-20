@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Supply Chain Flow Diagram Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Mermaid version:", mermaid.version);
+            
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'default',
+                securityLevel: 'loose',
+                logLevel: 'debug'
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fixed Supply Chain Flow Diagram</h1>
+    
+    <div class="diagram-container">
+        <h2>End-to-End Supply Chain Flow</h2>
+        <div class="mermaid">
+graph TD
+    %% Define key entities
+    customer((Customer))
+    partner((Wholesale Partner))
+    %% Forward Supply Chain Flow
+    subgraph Planning_Procurement[Planning & Procurement]
+        forecast[Demand Forecasting (Planning System)] --> orderPO[Create Purchase Order (ERP)]
+    end
+    orderPO --> factory[Factory Production & QA Checks]
+    factory --> bookShip[Book Freight & Prepare Export Docs (TMS/Freight Forwarder)]
+    bookShip --> exportCustoms[Export Customs Clearance]
+    exportCustoms --> depart[Depart Origin Port (International Transit)]
+    depart --> arrivePort[Arrive at Destination Port]
+    arrivePort --> importCustoms[Import Customs Clearance (Broker)]
+    importCustoms --> dcTransport[Transport to DC (TMS/Carrier)]
+    subgraph DC_Inbound[Distribution Center Inbound]
+        dcTransport --> receiveDC[Receive Shipment @ DC\n(Unload, Verify, QC inspection)]
+        receiveDC --> putaway[Putaway Stock in Warehouse (WMS updates inventory)]
+    end
+    %% Order Fulfillment (Multi-Channel)
+    subgraph Ecommerce[E-commerce Order Fulfillment]
+        ecomOrder[Customer Places Online Order (Website → OMS)] --> orderCheck{Order Cancelled?}
+        orderCheck -- No --> pickPackEcom[Pick & Pack Order (WMS)\nPrint Shipping Label (TMS)]
+        orderCheck -- Yes --> cancelOrder[Cancel Order (OMS)\nRefund customer & Release stock]
+        pickPackEcom --> shipEcom[Ship to Customer (Carrier)\nProvide Tracking (OMS/TMS)]
+    end
+    putaway --> ecomOrder  %% Inventory available triggers order fulfillment
+    shipEcom --> customer  %% Order delivered to customer
+    subgraph Retail[Retail Store Replenishment]
+        storeRepl[Store Replenishment Trigger (ERP/MRP)] --> storePick[Pick & Pack for Store (WMS)]
+        storePick --> shipStore[Ship Transfer to Store (TMS)]
+        shipStore --> storeRecv[Store Receives Stock\nCheck in & Update POS Inventory]
+    end
+    putaway --> storeRepl   %% Available stock used for store replenishment
+    subgraph Wholesale[Wholesale Fulfillment]
+        wholesaleOrder[Wholesale Partner Order (ERP)] --> wholesalePick[Pick & Pack Wholesale Batch (WMS)\nPalletize, ASN & Invoice (ERP)]
+        wholesalePick --> wholesaleShip[Ship to Wholesale Partner (Freight)]
+    end
+    putaway --> wholesaleOrder  %% Available stock used for wholesale orders
+    wholesaleShip --> partner   %% Shipment delivered to wholesale partner
+    %% Reverse Logistics (Returns & RMA)
+    subgraph Returns[Reverse Logistics Returns & RMA]
+        returnInit[Initiate Return (Online RMA Portal)] --> returnShip[Ship Returned Product (Carrier)]
+        returnShip --> returnRecv[Receive Return at DC/Centre\nInspect & Grade Item (Manual QC)]
+        returnRecv --> disposition{Item Resellable?}
+        disposition -- Yes --> restock[Restock into Inventory (WMS/OMS updates stock)]
+        disposition -- No --> scrapCheck{Refurbish vs. Scrap?}
+        scrapCheck -- Refurbish --> refurbish[Send to Refurbishment / Secondary Sales]
+        scrapCheck -- Scrap --> discard[Recycle/Dispose Product]
+        %% Post-disposition: finalize returns
+        restock --> refund[Issue Refund to Customer (OMS/ERP)]
+        refurbish --> refund
+        discard --> refund
+        storeReturn[Return at Retail Store] --> storeInspect[Inspect Item (Store Associate)]
+        storeInspect --> storeDecision{Resell in Store?}
+        storeDecision -- Yes --> restockStore[Add Back to Store Stock (POS Update)]
+        storeDecision -- No --> sendDC[Send to Central Returns Processing (DC)]
+        sendDC --> returnRecv   %% Store sends item to DC for centralized processing
+        storeReturn -.-> refundStore[Process Refund to Customer (Store/POS)]
+        wholesaleReturn[Wholesale Return Request (RMA)] --> returnRecv
+        wholesaleReturn -.-> creditNote[Issue Credit to Wholesale Partner (ERP)]
+    end
+    %% Return initiations (dashed lines from end entities)
+    customer -.-> returnInit     %% Customer mails return via RMA
+    customer -.-> storeReturn    %% Customer returns product in store
+    partner -.-> wholesaleReturn %% Wholesale partner initiates return shipment
+        </div>
+    </div>
+</body>
+</html>

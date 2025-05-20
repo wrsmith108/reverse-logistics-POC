@@ -6,12 +6,13 @@ This document provides detailed information about the various components in the 
 
 1. [Platform Architecture](#platform-architecture)
 2. [Software Architecture](#software-architecture)
-3. [Operator Experience](#operator-experience)
-4. [Platform Capabilities & Metrics](#platform-capabilities--metrics)
-5. [POC Implementation](#poc-implementation)
-6. [Pricing Strategy](#pricing-strategy)
-7. [ROI Analysis](#roi-analysis)
-8. [Shopify Integration](#shopify-integration)
+3. [Supply Chain Flow](#supply-chain-flow)
+4. [Operator Experience](#operator-experience)
+5. [Platform Capabilities & Metrics](#platform-capabilities--metrics)
+6. [POC Implementation](#poc-implementation)
+7. [Pricing Strategy](#pricing-strategy)
+8. [ROI Analysis](#roi-analysis)
+9. [Shopify Integration](#shopify-integration)
 
 ## Platform Architecture
 
@@ -88,6 +89,42 @@ The Software Architecture component provides a detailed technical view of the sy
   - DevOps & Monitoring
 
 This component provides technical stakeholders with a comprehensive understanding of the software architecture, implementation approach, and technology decisions.
+
+## Supply Chain Flow
+
+**File:** `supply-chain-flow.tsx`
+
+The Supply Chain Flow component illustrates the end-to-end supply chain and reverse logistics processes, including:
+
+- **End-to-End Supply Chain Flow**: Comprehensive flowchart visualization showing:
+  - Planning & Procurement
+  - International Logistics
+  - Distribution Center Operations
+  - Multi-Channel Fulfillment (E-commerce, Retail, Wholesale)
+  - Reverse Logistics (Returns & RMA)
+
+- **Key Process Areas**: Detailed explanation of each major section in the supply chain:
+  - Planning & Procurement processes
+  - International Logistics operations
+  - Distribution Center Operations
+  - Multi-Channel Fulfillment strategies
+  - Reverse Logistics handling
+
+- **Systems Integration**: Overview of how various systems interconnect:
+  - ERP/MRP Systems
+  - WMS (Warehouse Management)
+  - TMS (Transportation Management)
+  - OMS (Order Management)
+  - POS (Point of Sale)
+  - RMA (Return Merchandise Authorization)
+
+- **Reverse Logistics Focus**: Detailed breakdown of the returns process:
+  - Online Returns
+  - In-Store Returns
+  - Wholesale Returns
+  - Disposition workflows
+
+This component provides a visual representation of how products move through the entire supply chain, with special emphasis on the reverse logistics processes that are critical for modern retail operations.
 
 ## Operator Experience
 
